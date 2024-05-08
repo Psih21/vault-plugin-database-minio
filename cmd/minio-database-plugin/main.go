@@ -5,7 +5,7 @@ import (
 	"os"
 
 	"github.com/hashicorp/vault/sdk/database/dbplugin/v5"
-	"github.com/lkubb/vault-plugin-database-minio"
+	"github.com/Psih21/vault-plugin-database-minio"
 )
 
 func main() {

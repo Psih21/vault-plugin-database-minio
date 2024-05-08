@@ -10,7 +10,7 @@ import (
 	dbplugin "github.com/hashicorp/vault/sdk/database/dbplugin/v5"
 	"github.com/hashicorp/vault/sdk/database/helper/dbutil"
 	"github.com/hashicorp/vault/sdk/helper/template"
-	api "github.com/minio/madmin-go/v2"
+ 	api "github.com/minio/madmin-go/v3"
 	iampolicy "github.com/minio/pkg/iam/policy"
 )
 
@@ -42,6 +42,7 @@ func new() *Minio {
 		minioConnectionProducer: connProducer,
 	}
 }
+
 
 // Type returns the TypeName for this backend
 func (c *Minio) Type() (string, error) {
@@ -141,13 +142,13 @@ func (c *Minio) NewUser(ctx context.Context, req dbplugin.NewUserRequest) (dbplu
 		finalPolicies = append(finalPolicies, pol)
 	}
 
-	if len(finalPolicies) > 0 {
-		policiesReq := api.PolicyAssociationReq{Policies: finalPolicies, User: username}
-		err = client.AttachPolicy(ctx, policiesReq)
-		if err != nil {
-			return rollback(ctx, client, username, userPolicy, err)
-		}
-	}
+    if len(finalPolicies) > 0 {
+        policiesReq := api.PolicyAssociationReq{Policies: finalPolicies, User: username}
+        _, err = client.AttachPolicy(ctx, policiesReq) // Updated line
+        if err != nil {
+            return rollback(ctx, client, username, userPolicy, err)
+        }
+    }
 
 	for _, groupName := range defs.Groups {
 		groupReq := api.GroupAddRemove{Group: groupName, Members: []string{username}}

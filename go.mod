@@ -1,4 +1,4 @@
-module github.com/lkubb/vault-plugin-database-minio
+module github.com/Psih21/vault-plugin-database-minio
 
 go 1.20
 
@@ -10,7 +10,7 @@ require (
 	github.com/hashicorp/go-secure-stdlib/tlsutil v0.1.2
 	github.com/hashicorp/vault v1.13.2
 	github.com/hashicorp/vault/sdk v0.9.0
-	github.com/minio/madmin-go/v2 v2.1.0
+	github.com/minio/madmin-go/v3 v3.0.0
 	github.com/minio/pkg v1.7.1
 	github.com/mitchellh/mapstructure v1.5.0
 	github.com/stretchr/testify v1.8.2
